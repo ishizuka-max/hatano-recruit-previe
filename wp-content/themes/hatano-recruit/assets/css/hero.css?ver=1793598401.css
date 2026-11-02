@@ -1,0 +1,402 @@
+/* =============================================================
+   hero.css — ヒーロー（写真スライド3枚＋H1＋リード＋CTA＋停止ボタン）
+   高さ：PC clamp(560px, calc(100svh - 260px), 720px) ／ SP 560px
+   目的：数字帯（facts）の1段目をファーストビューに入れる（監査02 P1／03／12）
+   コントラスト：案A（写真下部グラデーション）＋案B（文字背後の帯）併用（監査04 違反1）
+   ============================================================= */
+
+.hr-hero {
+  position: relative;
+  isolation: isolate;
+  height: clamp(560px, calc(100svh - 260px), 720px);
+  background: #e9f0ed;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* 背景：上は淡い緑地、43%から下は青 */
+.hr-hero__wash {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+.hr-hero__wash::before {
+  content: '';
+  position: absolute;
+  inset: 43% 0 0;
+  background: var(--blue);
+}
+.hr-hero__wash::after {
+  content: '';
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  width: 26%;
+  height: 28%;
+  border-top: 1px solid #86aead;
+  border-right: 1px solid #86aead;
+}
+
+.hr-hero__inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: min(1600px, 100%);
+  margin: auto;
+}
+
+/* ---------- 写真スライド ---------- */
+.hr-hero__scene {
+  position: absolute;
+  top: 4%;
+  left: 3.5%;
+  width: 66%;
+  height: 64%;
+  overflow: hidden;
+  background: var(--ink);
+}
+.hr-hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.4s ease-in-out;
+}
+.hr-hero__slide.is-active {
+  opacity: 1;
+}
+.hr-hero__slide picture,
+.hr-hero__slide .hr-img,
+.hr-hero__slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.hr-hero__slide img {
+  object-fit: cover;
+  object-position: 48% center;
+}
+/* 画像未設定時のプレースホルダー（hr_img が span を返す） */
+.hr-hero__slide .hr-img--placeholder {
+  background: linear-gradient(135deg, #2a5158, #193c42);
+}
+/* ゆっくり寄る（停止ボタン／reduced-motion で止まる） */
+html.js .hr-hero__slide img {
+  animation: hr-hero-drift 24s linear infinite alternate;
+}
+.hr-hero[data-paused] .hr-hero__slide img {
+  animation-play-state: paused;
+}
+/* 案A：写真下部を暗くして白文字の背景を安定させる（写真の中身に依存しない）
+   監査12 問題C：下半分を濁らせすぎない。濃さは H1 の帯（案B）が受け持つので、裾だけ締める */
+.hr-hero__scene::after,
+.hr-hero__person::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 40%, #082d3259 72%, #082d32a6 100%);
+}
+
+/* ---------- 人物写真（PC右カラム。元デザイン hero-person） ---------- */
+.hr-hero__person {
+  position: absolute;
+  z-index: 1;
+  top: 18%;
+  right: 3.5%;
+  width: 40%;
+  height: 64%;
+  overflow: hidden;
+  background: var(--ink);
+}
+.hr-hero__person .hr-hero__slide img {
+  object-position: 62% 28%;
+}
+.hr-hero__person .hr-hero__slide:nth-child(2) img {
+  object-position: 55% 22%;
+}
+html.js .hr-hero__person {
+  animation: hr-hero-open 1.2s .15s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+/* 停止ボタン（監査04 違反4）。写真枠の右上。44px以上 */
+.hr-hero__pause {
+  position: absolute;
+  z-index: 3;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  background: #193c42cc;
+  color: #fff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+}
+.hr-hero__pause:hover,
+.hr-hero__pause:focus-visible {
+  background: #193c42;
+}
+.hr-hero__pause-icon {
+  display: inline-block;
+  width: 10px;
+  height: 12px;
+  border-left: 3px solid #fff;
+  border-right: 3px solid #fff;
+}
+.hr-hero__pause[aria-pressed="true"] .hr-hero__pause-icon {
+  width: 0;
+  height: 0;
+  border-left: 10px solid #fff;
+  border-right: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+/* JS無効時は切り替え自体が起きないので隠す */
+html:not(.js) .hr-hero__pause {
+  display: none;
+}
+
+/* ---------- コピー ---------- */
+.hr-hero__note {
+  position: absolute;
+  top: 7%;
+  right: 7%;
+  margin: 0;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .14em;
+}
+.hr-hero__title {
+  position: absolute;
+  z-index: 2;
+  left: 7.5%;
+  top: 40%;
+  margin: 0;
+  font-size: clamp(44px, 4.4vw, 68px);
+  font-weight: 600;
+  line-height: 1.42;
+  letter-spacing: .025em;
+  color: #fff;
+  text-shadow: 0 2px 24px #082d32b3, 0 0 2px #082d3280;
+}
+.hr-hero__title > span {
+  display: block;
+  white-space: nowrap;
+  width: max-content;
+  /* 案B：文字の背後に帯（紺 85%）。写真の明部に乗っても 6:1 以上 */
+  background: #193c42d9;
+  padding: 0 .35em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.hr-hero__title > span + span {
+  margin-left: 8vw;
+}
+html.js .hr-hero__title > span {
+  animation: hr-hero-rise 1s .25s cubic-bezier(.16, 1, .3, 1) both;
+}
+html.js .hr-hero__title > span + span {
+  animation-delay: .45s;
+}
+
+.hr-hero__copy {
+  /* PCでは子要素をそれぞれ絶対配置する。SPでは流し込みに切り替える */
+  display: contents;
+}
+.hr-hero__lead {
+  position: absolute;
+  z-index: 2;
+  left: 7.5%;
+  bottom: calc(5% + 64px);
+  width: 48%;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.9;
+  letter-spacing: .04em;
+  color: #fff;
+}
+.hr-hero__actions {
+  position: absolute;
+  z-index: 2;
+  left: 7.5%;
+  bottom: 5%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.hr-hero__apply {
+  background: var(--accent-text);
+  color: #fff;
+  border-color: var(--accent-text);
+  min-width: 180px;
+  justify-content: center;
+}
+.hr-hero__apply:hover,
+.hr-hero__apply:focus-visible {
+  background: #86420f;
+}
+.hr-hero__jobs {
+  color: #fff;
+  border-color: #fff;
+  background: transparent;
+  gap: 10px;
+}
+.hr-hero__jobs:hover,
+.hr-hero__jobs:focus-visible {
+  background: #ffffff1f;
+  color: #fff;
+}
+
+/* ---------- キーフレーム ---------- */
+@keyframes hr-hero-drift {
+  from { transform: scale(1.01); }
+  to   { transform: scale(1.08); }
+}
+@keyframes hr-hero-open {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0); }
+}
+@keyframes hr-hero-rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- ブレークポイント ---------- */
+@media (max-width: 1199px) {
+  .hr-hero__scene { width: 70%; }
+  .hr-hero__person { width: 38%; top: 17%; height: 62%; }
+  .hr-hero__title { top: 38%; }
+}
+
+/* 1023px以下：人物写真は出さない（写真枠が狭くなるため）。空の罫線枠も出さない */
+@media (max-width: 1023px) {
+  .hr-hero__person { display: none; }
+  .hr-hero__wash::after { display: none; }
+  .hr-hero__scene { width: 78%; height: 64%; }
+  .hr-hero__title { font-size: clamp(40px, 5.2vw, 56px); top: 40%; }
+  .hr-hero__title > span + span { margin-left: 6vw; }
+  .hr-hero__lead { width: 72%; }
+}
+
+/* SP：写真を上に、見出しは紺地の帯に置いて写真に被せない（監査03 案1） */
+@media (max-width: 767px) {
+  .hr-hero {
+    height: 560px;
+    background: var(--ink);
+  }
+  .hr-hero__wash { display: none; }
+  .hr-hero__inner {
+    display: flex;
+    flex-direction: column;
+  }
+  .hr-hero__scene {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    flex: 0 0 44%;
+  }
+  /* SPは文字が乗らないので暗化は裾だけ（実写真の手元・地面を濁らせない） */
+  .hr-hero__scene::after {
+    background: linear-gradient(180deg, transparent 60%, #193c42 100%);
+  }
+  .hr-hero__pause {
+    top: auto;
+    left: auto;
+    right: 10px;
+    bottom: 10px;
+    min-width: 44px;
+    padding: 8px 10px;
+    gap: 0;
+  }
+  .hr-hero__pause-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .hr-hero__copy {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 20px 18px;
+    min-height: 0;
+  }
+  .hr-hero__note,
+  .hr-hero__title,
+  .hr-hero__lead,
+  .hr-hero__actions {
+    position: static;
+    width: auto;
+    margin: 0;
+  }
+  .hr-hero__note {
+    color: #bcd3cc;
+    font-size: 12px;
+    letter-spacing: .1em;
+  }
+  .hr-hero__title {
+    font-size: clamp(27px, 8.4vw, 34px);
+    line-height: 1.45;
+    letter-spacing: .02em;
+    text-shadow: none;
+  }
+  .hr-hero__title > span {
+    background: none;
+    padding: 0;
+    width: auto;
+  }
+  .hr-hero__title > span + span {
+    margin-left: 0;
+  }
+  .hr-hero__lead {
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: #dbe7e3;
+  }
+  .hr-hero__br { display: none; }
+  .hr-hero__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .hr-hero__apply,
+  .hr-hero__jobs {
+    min-width: 0;
+    width: 100%;
+    justify-content: center;
+    padding-inline: 8px;
+    font-size: 15px;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+  .hr-hero__jobs { gap: 6px; }
+}
+
+@media (max-width: 359px) {
+  .hr-hero__title { font-size: 26px; }
+  .hr-hero__lead { font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hr-hero__slide { transition: none; }
+  html.js .hr-hero__slide img,
+  html.js .hr-hero__person,
+  html.js .hr-hero__title > span { animation: none; }
+}

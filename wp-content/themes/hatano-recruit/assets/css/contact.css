@@ -1,0 +1,67 @@
+/* 応募フォーム（担当：FAQ・フォーム） */
+.hr-contact{background:var(--paper,#faf9f3);scroll-margin-top:88px}
+.hr-contact__inner{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:start}
+.hr-contact__intro{position:sticky;top:104px}
+.hr-contact__title{font-size:38px;margin:16px 0 20px;color:var(--ink,#193c42)}
+.hr-contact__title:focus{outline:none}
+.hr-contact__lead{font-size:15px;line-height:2;margin:0}
+.hr-contact__caption{font-size:13px;color:var(--muted,#4f6663);margin-top:14px;line-height:1.8}
+
+.hr-form{color:var(--ink,#193c42);display:grid;gap:22px}
+.hr-form fieldset{border:0;padding:0;margin:0;min-width:0}
+.hr-form__label{display:block;font-size:14px;font-weight:500;margin-bottom:8px;line-height:1.5}
+.hr-form__req{display:inline-block;font-size:11px;font-weight:700;line-height:1;padding:4px 6px;border-radius:2px;background:var(--accent-text,#9c4f17);color:#fff;margin-left:6px;vertical-align:middle;font-style:normal}
+.hr-form__opt{display:inline-block;font-size:11px;font-weight:500;line-height:1;padding:4px 6px;border-radius:2px;border:1px solid var(--line,#c7d5d2);color:var(--muted,#4f6663);margin-left:6px;vertical-align:middle;font-style:normal}
+
+.hr-field{display:grid;gap:6px}
+.hr-field input,.hr-field select,.hr-field textarea{width:100%;font:400 16px/1.5 'Noto Sans JP',sans-serif;color:var(--ink,#193c42);background:#fff;border:1px solid #6f877c;border-radius:4px;padding:13px 14px;min-height:48px;box-sizing:border-box}
+.hr-field textarea{resize:vertical}
+.hr-field input::placeholder,.hr-field textarea::placeholder{color:#7d8f8c}
+.hr-field input:focus-visible,.hr-field select:focus-visible,.hr-field textarea:focus-visible{outline:2px solid var(--blue,#236b73);outline-offset:2px;border-color:var(--blue,#236b73)}
+.hr-field__help{font-size:12px;color:var(--muted,#4f6663);line-height:1.6}
+.hr-field__error{display:none;font-size:13px;font-weight:500;color:#a1361c;line-height:1.6}
+.hr-field input[aria-invalid="true"],.hr-field select[aria-invalid="true"],.hr-field textarea[aria-invalid="true"],.hr-form.is-validated .hr-field :invalid{border-color:#a1361c;border-width:2px}
+.hr-form.is-validated .hr-field :invalid~.hr-field__error,.hr-field [aria-invalid="true"]~.hr-field__error{display:block}
+
+.hr-chips{display:flex;flex-wrap:wrap;gap:10px}
+.hr-chip{position:relative;display:inline-flex}
+.hr-chip input{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:pointer}
+.hr-chip span{display:inline-flex;align-items:center;min-height:48px;padding:10px 18px;border:1px solid #6f877c;border-radius:999px;font-size:15px;font-weight:500;background:#fff;color:var(--ink,#193c42);transition:background .15s,color .15s,border-color .15s}
+.hr-chips--small .hr-chip span{min-height:44px;padding:8px 16px;font-size:14px}
+.hr-chip input:checked+span{background:var(--blue,#236b73);border-color:var(--blue,#236b73);color:#fff}
+.hr-chip input:focus-visible+span{outline:2px solid var(--blue,#236b73);outline-offset:3px}
+.hr-form__group[aria-invalid="true"] .hr-chip span{border-color:#a1361c}
+
+.hr-form__details{border:1px solid var(--line,#c7d5d2);border-radius:4px;background:#fff}
+.hr-form__details+.hr-form__details{border-top:1px solid var(--line,#c7d5d2)}
+.hr-form__details>summary{padding:10px 16px;min-height:48px;font-size:15px;font-weight:500}
+.hr-form__details>summary:focus-visible{outline:2px solid var(--blue,#236b73);outline-offset:-2px}
+.hr-form__details-body{display:grid;gap:18px;padding:4px 16px 18px}
+
+.hr-honeypot{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+
+.hr-form__alert{margin:0;padding:14px 16px;border-radius:4px;background:#fbeae4;border:1px solid #d9774f;color:#7b2a12;font-size:14px;font-weight:500;line-height:1.7}
+.hr-form__alert.is-empty{padding:0;border:0;margin:0;height:0;overflow:hidden}
+.hr-form__alert:focus{outline:2px solid #a1361c;outline-offset:2px}
+
+.hr-form__consent{font-size:13px;line-height:1.8;color:var(--muted,#4f6663);margin:0;padding:14px 16px;background:#fff;border:1px solid var(--line,#c7d5d2);border-radius:4px}
+.hr-form__consent a{color:var(--blue,#236b73);text-decoration:underline;margin-left:4px}
+
+.hr-form__submit{width:100%;min-height:56px;font-size:16px;font-weight:700;background:var(--accent,#ba641e);color:#fff;border:1px solid var(--accent,#ba641e);border-radius:4px;cursor:pointer}
+.hr-form__submit:hover{background:#a3561a;border-color:#a3561a}
+.hr-form__submit:focus-visible{outline:2px solid var(--accent-text,#9c4f17);outline-offset:3px}
+.hr-form__submit[disabled]{opacity:.65;cursor:progress}
+.hr-form__after{font-size:13px;color:var(--muted,#4f6663);text-align:center;margin:-8px 0 0;line-height:1.7}
+.hr-form__back{justify-self:center;display:inline-flex;align-items:center;min-height:44px;font-size:14px;color:var(--blue,#236b73);text-decoration:underline;text-underline-offset:4px}
+
+@media (max-width:960px){.hr-contact__inner{grid-template-columns:1fr;gap:28px}.hr-contact__intro{position:static}.hr-contact__title{font-size:30px;margin:12px 0 14px}}
+@media (max-width:640px){.hr-contact{scroll-margin-top:76px}.hr-form{gap:18px}.hr-chip span{padding:10px 14px;font-size:14px}.hr-form__submit{min-height:52px}}
+
+/* 送信完了ページ（page-thanks.php） */
+.hr-thanks__section{min-height:60vh;display:flex;align-items:center}
+.hr-thanks__inner{max-width:640px}
+.hr-thanks__title{font-size:clamp(28px,4vw,40px);line-height:1.5;margin:8px 0 20px;color:var(--ink,#193c42)}
+.hr-thanks__title:focus{outline:none}
+.hr-thanks__lead{font-size:17px;font-weight:500;line-height:1.9;margin:0 0 20px}
+.hr-thanks__notes{margin:0 0 32px;font-size:14px;line-height:1.9;color:var(--muted,#4f6663)}
+.hr-thanks__actions{display:flex;gap:12px;flex-wrap:wrap}

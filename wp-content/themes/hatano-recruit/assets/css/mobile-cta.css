@@ -1,0 +1,109 @@
+/* =============================================================
+   mobile-cta.css — スマホ固定CTA（767px以下のみ。監査02 第4節）
+   表示制御：hero.js が data-visible を切り替える
+   ============================================================= */
+
+.hr-mobile-cta {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  /* フッターが固定CTAに隠れないよう、base.css の body.hr-front .hr-main{padding-bottom:var(--hr-mobile-cta-h)} に実高を渡す */
+  :root {
+    --hr-mobile-cta-h: calc(64px + env(safe-area-inset-bottom, 0px));
+  }
+  html.js {
+    scroll-padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .hr-mobile-cta {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 39; /* header(40) より下 */
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    align-items: center;
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+    background: var(--ink);
+    box-shadow: 0 -6px 18px #193c4233;
+    transform: translateY(100%);
+    transition: transform .3s ease, visibility 0s linear .3s;
+    visibility: hidden;
+  }
+  .hr-mobile-cta[data-visible="true"] {
+    transform: none;
+    visibility: visible;
+    transition: transform .3s ease, visibility 0s;
+  }
+  /* main.js がメニュー開時に html.hr-menu-open を付ける。JS側の判定と二重で隠す */
+  html.hr-menu-open .hr-mobile-cta {
+    transform: translateY(100%);
+    visibility: hidden;
+  }
+
+  .hr-mobile-cta__pay {
+    margin: 0;
+    padding-left: 4px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .hr-mobile-cta__pay small {
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    color: #bcd3cc;
+    margin-bottom: 2px;
+  }
+  .hr-mobile-cta__num {
+    display: block;
+    font-size: 15px;
+  }
+
+  .hr-mobile-cta__apply {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 10px 14px;
+    border: 0;
+    border-radius: 3px;
+    background: var(--accent-text);
+    color: #fff;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .hr-mobile-cta__apply:hover,
+  .hr-mobile-cta__apply:focus-visible {
+    background: #86420f;
+  }
+  .hr-mobile-cta__apply span {
+    font-size: 17px;
+    line-height: 1;
+  }
+}
+
+@media (max-width: 359px) {
+  .hr-mobile-cta__num { font-size: 14px; }
+  .hr-mobile-cta__apply { font-size: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hr-mobile-cta,
+  .hr-mobile-cta[data-visible="true"],
+  .hr-mobile-cta__apply {
+    transition: none;
+  }
+}

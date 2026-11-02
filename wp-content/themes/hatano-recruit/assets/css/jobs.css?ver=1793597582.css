@@ -1,0 +1,85 @@
+/* ==========================================================================
+   #jobs 募集職種 — 職種カード3枚＋ページ内展開の募集要項
+   列数：PC 3列 / 1023px以下 2列 / 767px以下 1列。段違い配置はしない（監査12-5C）
+   日給はカード内で一番大きく、色は --accent-text（監査04 / 12-5A,B）
+   ========================================================================== */
+.hr-jobs{position:relative;background:var(--soft,#e7f0ed)}
+.hr-jobs::before{content:'';position:absolute;top:0;left:0;width:60%;height:1px;background:#9bb9ac}
+
+.hr-jobs-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:48px;margin-bottom:40px}
+.hr-jobs-intro .hr-title{margin-bottom:0}
+.hr-jobs-intro .hr-title h2{text-wrap:balance}
+.hr-jobs-lead{font-size:15px;line-height:2;color:var(--ink,#193c42);margin:0;max-width:34em}
+.hr-jobs-br{display:none}
+
+/* カード */
+.hr-job-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;align-items:stretch}
+.hr-job{background:#fff;border:1px solid var(--line,#c7d5d2);display:flex;flex-direction:column;min-width:0}
+.hr-job-image{position:relative;overflow:hidden;background:#d8e3df}
+.hr-job-image picture,.hr-job-image img{display:block;width:100%;height:100%}
+.hr-job-image img{aspect-ratio:1;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.hr-job:hover .hr-job-image img{transform:scale(1.04)}
+.hr-job-tag{position:absolute;left:0;bottom:0;padding:9px 14px;font-size:12px;font-weight:700;background:#fff;color:var(--blue,#236b73);letter-spacing:.02em}
+
+.hr-job-body{display:flex;flex-direction:column;padding:22px 24px 24px;min-width:0}
+.hr-job-title{font-size:20px;line-height:1.5;letter-spacing:.015em;margin:0 0 12px;font-weight:600;color:var(--ink,#193c42);min-height:3em}/* 2行分を確保し、3枚の日給行を同じ高さに揃える */
+.hr-job-title>span{display:block}
+
+/* 日給：カード内で最大。clamp(22px,2vw,28px)/700/--accent-text */
+.hr-job-pay{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 6px;margin:0 0 10px;padding:12px 0;border-top:1px solid var(--line,#c7d5d2);border-bottom:1px solid var(--line,#c7d5d2)}
+.hr-job-pay-label{font-size:13px;font-weight:700;color:var(--ink,#193c42)}
+.hr-job-pay strong{font-size:clamp(22px,2vw,28px);font-weight:700;line-height:1.3;letter-spacing:.01em;color:var(--accent-text,#9c4f17);white-space:nowrap;font-feature-settings:"tnum"}
+.hr-job-pay-sep{display:inline-block;margin:0 2px;font-size:.8em;font-weight:500}
+.hr-job-pay-unit{font-size:14px;font-weight:700;color:var(--accent-text,#9c4f17)}
+
+.hr-job-catch{margin:0 0 10px;font-size:15px;font-weight:700;line-height:1.6;color:var(--ink,#193c42)}
+.hr-job-work{margin:0 0 18px;font-size:14px;line-height:1.9;color:var(--muted,#4f6663)}
+
+.hr-job-actions{margin-top:auto}
+.hr-job-actions .hr-button{width:100%;justify-content:center;text-align:center}
+
+/* 募集要項（ページ内展開） */
+.hr-job-details{margin:14px 0 0;border:0;padding:0}
+.hr-job-details>.hr-job-summary{min-height:48px;font-size:14px;color:var(--ink,#193c42)}
+.hr-job-details>.hr-job-summary:focus-visible{outline:2px solid var(--blue,#236b73);outline-offset:2px}
+.hr-job-details>.hr-job-sheet{padding:14px 0 8px}
+.hr-job-sheet-title{margin:0 0 12px;font-size:13px;line-height:1.7;font-weight:700;color:var(--muted,#4f6663)}
+.hr-job-spec{margin:0}
+.hr-job-spec>div{display:grid;grid-template-columns:88px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line,#c7d5d2);font-size:14px;line-height:1.8}
+.hr-job-spec dt{font-weight:700;color:var(--ink,#193c42)}
+.hr-job-spec dd{margin:0;color:var(--ink,#193c42);min-width:0;overflow-wrap:anywhere}
+.hr-job-spec dd p{margin:0}
+.hr-job-tasks{margin:6px 0 0;padding:0 0 0 1.2em;list-style:disc}
+.hr-job-tasks li{margin:0}
+.hr-job-sheet-note{margin:14px 0 0;font-size:12px;line-height:1.8;color:var(--muted,#4f6663)}
+.hr-job-apply--sheet{width:100%;justify-content:center;margin-top:18px}
+
+/* カード群の下：主「応募する」＋従「まず質問する」（監査02 P6） */
+.hr-jobs-note{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-top:48px;padding-top:24px;border-top:1px solid #b7cbbf}
+.hr-jobs-note>p{margin:0;font-size:14px;color:var(--muted,#4f6663)}
+.hr-jobs-ask{background:none;border:0;border-bottom:1px solid currentColor;padding:8px 0;min-height:44px;font-size:14px;font-weight:700;color:var(--ink,#193c42);cursor:pointer}
+.hr-jobs-ask:hover{color:var(--blue,#236b73)}
+
+@media (max-width:1199px){
+	.hr-job-grid{gap:24px}
+	.hr-job-body{padding:20px 20px 22px}
+}
+@media (max-width:1023px){
+	.hr-job-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+	.hr-jobs-intro{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:32px}
+}
+@media (max-width:767px){
+	.hr-jobs-br{display:inline}
+	.hr-jobs-lead{font-size:14px}
+	.hr-job-grid{grid-template-columns:1fr;gap:24px}
+	.hr-job-image img{aspect-ratio:1.3}
+	.hr-job-title{font-size:19px;min-height:0}
+	.hr-job-work{font-size:13px}
+	.hr-job-spec>div{grid-template-columns:1fr;gap:4px;font-size:13px}
+	.hr-jobs-note{flex-direction:column;align-items:stretch;gap:14px;margin-top:36px}
+	.hr-jobs-note .hr-button{width:100%;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){
+	.hr-job-image img{transition:none}
+	.hr-job:hover .hr-job-image img{transform:none}
+}

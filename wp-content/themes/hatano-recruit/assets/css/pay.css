@@ -1,0 +1,101 @@
+/* ==========================================================================
+   #pay 給与・働く環境 — 日給レンジ／職種別一覧／月収めやす／手当／福利厚生／注記
+   - 職種別一覧は grid 2列（職種名 | 金額）で、職種名が単語の途中で折れない（監査03-D / 12-8C）
+   - 月収めやす：「月収約」は小さく、数字40px/700（監査12-8A）。768px以下は1列（監査03-C）
+   - 日給の大数字は700（監査12-8F）。色は日給＝銅（--accent-text）、月収＝紺緑（--blue）
+   ========================================================================== */
+.hr-pay{background:var(--paper,#faf9f3)}
+.hr-pay-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:48px;margin-bottom:8px}
+.hr-pay-intro .hr-title{margin-bottom:0}
+.hr-pay-intro .hr-title h2{text-wrap:balance}
+.hr-pay-lead{margin:0;font-size:15px;line-height:2;color:var(--ink,#193c42)}
+
+/* 日給レンジ＋休日 */
+.hr-pay-range{display:grid;grid-template-columns:1.5fr 1fr;gap:56px;border-top:1px solid var(--ink,#193c42);border-bottom:1px solid var(--line,#c7d5d2);padding:40px 0;margin-top:32px}
+.hr-pay-range-side{border-left:1px solid var(--line,#c7d5d2);padding-left:56px}
+.hr-pay-label{margin:0;font-size:13px;font-weight:700;color:var(--ink,#193c42)}
+.hr-pay-label em{font-style:normal;font-size:11px;font-weight:500;padding:2px 7px;margin-left:10px;background:var(--soft,#e7f0ed);color:var(--ink,#193c42)}
+.hr-pay-big{margin:6px 0 0;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.hr-pay-big strong{font-size:clamp(40px,4.8vw,68px);font-weight:700;line-height:1.3;letter-spacing:.01em;color:var(--accent-text,#9c4f17);white-space:nowrap;font-feature-settings:"tnum"}
+.hr-pay-range-side .hr-pay-big strong{color:var(--blue,#236b73)}
+.hr-pay-sep{display:inline-block;margin-inline:10px;font-weight:400;color:#95b1a3}
+.hr-pay-big small{font-size:18px;font-weight:400;color:var(--ink,#193c42)}
+.hr-pay-sub{margin:8px 0 0;font-size:13px;line-height:1.8;color:var(--muted,#4f6663)}
+
+/* 職種別の日給：2列グリッド。職種名は titleShort の区切りでだけ折れる */
+.hr-pay-by-job-heading{margin:24px 0 0;font-size:13px;font-weight:700;color:var(--muted,#4f6663)}
+.hr-pay-by-job{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:0}
+.hr-pay-by-job li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;align-items:baseline;padding:10px 0;border-top:1px solid var(--line,#c7d5d2);font-size:14px}
+.hr-pay-by-job-name{min-width:0;line-height:1.6;color:var(--ink,#193c42)}
+.hr-pay-by-job-name>span{display:inline-block}
+.hr-pay-by-job-amount{font-weight:700;color:var(--accent-text,#9c4f17);white-space:nowrap;font-feature-settings:"tnum"}
+
+/* 月収のめやす */
+.hr-monthly{margin-top:44px}
+.hr-monthly-heading{margin:0 0 16px;font-size:17px;font-weight:700;color:var(--ink,#193c42)}
+.hr-monthly-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.hr-monthly-card{background:#fff;border:1px solid var(--line,#c7d5d2);padding:22px 24px;display:grid;gap:6px;align-content:start;min-width:0}
+.hr-monthly-label{margin:0;font-size:13px;font-weight:700;color:var(--ink,#193c42)}
+.hr-monthly-value{margin:0;display:flex;align-items:baseline;flex-wrap:wrap;gap:0 4px}
+.hr-monthly-prefix{display:block;width:100%;font-size:12px;font-weight:500;line-height:1.4;color:var(--muted,#4f6663);margin-bottom:2px}
+.hr-monthly-value strong{font-size:40px;font-weight:700;line-height:1.2;letter-spacing:.01em;color:var(--blue,#236b73);white-space:nowrap;font-feature-settings:"tnum"}
+.hr-monthly-value small{font-size:14px;font-weight:400;color:var(--ink,#193c42)}
+.hr-monthly-detail{margin:0;font-size:12px;line-height:1.7;color:var(--muted,#4f6663)}
+.hr-monthly-caption{margin-top:14px}
+
+/* 手当・賞与 */
+.hr-allowances-wrap{margin-top:36px}
+.hr-allowances-heading{margin:0 0 14px;font-size:15px;font-weight:700;color:var(--ink,#193c42)}
+.hr-allowances{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:28px;margin:0;padding:0}
+.hr-allowances>div{min-width:0}
+.hr-allowances dt{font-size:12px;font-weight:700;color:var(--muted,#4f6663)}
+.hr-allowances dd{margin:8px 0 0;font-size:14px;font-weight:500;line-height:1.7;color:var(--ink,#193c42)}
+.hr-allowances dd b{display:inline-block;font-size:20px;font-weight:700;line-height:1.3;color:var(--blue,#236b73);margin-right:2px;font-feature-settings:"tnum"}
+
+/* 福利厚生 */
+.hr-benefits-wrap{margin-top:36px}
+.hr-benefits-heading{margin:0 0 4px;font-size:15px;font-weight:700;color:var(--ink,#193c42)}
+.hr-benefits{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:28px}
+.hr-benefits li{border-bottom:1px solid #d7e2db;padding:14px 0;font-size:13px;line-height:1.7;color:var(--ink,#193c42)}
+.hr-benefits li::before{content:'・';margin-right:6px;color:var(--blue,#236b73)}
+
+/* 注記（.hr-caption は base.css） */
+.hr-pay-note{margin-top:28px}
+
+@media (max-width:1199px){
+	.hr-pay-range{gap:40px}
+	.hr-pay-range-side{padding-left:40px}
+	.hr-allowances{gap:20px}
+}
+@media (max-width:1023px){
+	.hr-pay-intro{flex-direction:column;align-items:flex-start;gap:12px}
+	/* 768で月収カードがはみ出す（監査03-C）→1列 */
+	.hr-monthly-grid{grid-template-columns:1fr;gap:12px}
+	.hr-monthly-card{grid-template-columns:1fr auto;align-items:center;column-gap:16px}
+	.hr-monthly-card .hr-monthly-detail{grid-column:1/-1}
+	.hr-monthly-value strong{font-size:36px}
+	.hr-allowances{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:767px){
+	.hr-pay-lead{font-size:14px}
+	.hr-pay-range{grid-template-columns:1fr;gap:24px;padding:24px 0;margin-top:24px}
+	.hr-pay-range-side{border-left:0;padding:22px 0 0;border-top:1px solid var(--line,#c7d5d2)}
+	.hr-pay-big strong{font-size:clamp(30px,8.8vw,44px)}
+	.hr-pay-sep{margin-inline:5px}
+	.hr-pay-big small{font-size:14px}
+	.hr-pay-by-job li{font-size:13px;gap:2px 12px}
+	.hr-pay-by-job-amount{font-size:14px}
+	.hr-monthly{margin-top:30px}
+	.hr-monthly-card{grid-template-columns:1fr;padding:18px}
+	.hr-monthly-value strong{font-size:32px}
+	.hr-allowances-wrap{margin-top:28px}
+	.hr-allowances{grid-template-columns:1fr;gap:16px}
+	.hr-allowances dd{font-size:13px}
+	.hr-allowances dd b{font-size:18px}
+	.hr-benefits{grid-template-columns:1fr 1fr;column-gap:18px}
+	.hr-benefits li{font-size:12px;padding:11px 0}
+}
+@media (max-width:399px){
+	.hr-pay-by-job li{grid-template-columns:1fr}
+	.hr-benefits{grid-template-columns:1fr}
+}

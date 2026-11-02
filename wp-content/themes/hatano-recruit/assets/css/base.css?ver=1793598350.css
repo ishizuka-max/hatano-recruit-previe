@@ -1,0 +1,457 @@
+/* ==========================================================================
+   hatano-recruit / base.css  [Lead]
+   トークン・リセット・共通部品。各セクションのCSSはこの上に積む。
+   ========================================================================== */
+
+:root {
+	--ink: #193c42;
+	--blue: #236b73;
+	--blue-dark: #19545b;
+	--accent: #ba641e;
+	--accent-text: #9c4f17;
+	--paper: #faf9f3;
+	--soft: #e7f0ed;
+	--line: #c7d5d2;
+	--muted: #4f6663;
+	--white: #fff;
+
+	--hr-font-sans: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
+	--hr-font-serif: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', 'YuMincho', serif;
+
+	--hr-header-h: 64px;
+	--hr-mobile-cta-h: 72px;
+	--hr-radius: 4px;
+	--hr-focus: #c27231;
+	--hr-ease: cubic-bezier(.16, 1, .3, 1);
+}
+
+/* ---- リセット ---- */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	color: var(--ink);
+	background: var(--white);
+	font: 400 15px/1.9 var(--hr-font-sans);
+	font-feature-settings: 'palt';
+	-webkit-font-smoothing: antialiased;
+	overflow-x: clip;
+}
+
+h1, h2, h3, h4, h5, h6, p, figure, dl, dd, ul, ol {
+	margin: 0;
+}
+
+ul, ol {
+	padding: 0;
+}
+
+img, picture, svg, video {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+button, input, select, textarea {
+	font: inherit;
+	color: inherit;
+}
+
+button {
+	cursor: pointer;
+	background: none;
+	border: 0;
+	padding: 0;
+}
+
+em {
+	font-style: normal;
+}
+
+small {
+	font-size: 12px;
+}
+
+/* ---- フォーカス（監査04：全背景で 3:1 以上） ---- */
+:focus-visible {
+	outline: 3px solid var(--hr-focus);
+	outline-offset: 4px;
+}
+
+:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* ---- スキップリンク ---- */
+.hr-skip {
+	position: fixed;
+	top: -100px;
+	left: 16px;
+	z-index: 1000;
+	padding: 12px 20px;
+	background: var(--white);
+	color: var(--ink);
+	font-weight: 700;
+	border: 2px solid var(--ink);
+}
+
+.hr-skip:focus {
+	top: 12px;
+}
+
+/* ---- 固定ヘッダー分のアンカー補正（全アンカー＋フォーカス可能要素） ---- */
+[id],
+a, button, summary, input, select, textarea, [tabindex] {
+	scroll-margin-top: calc(var(--hr-header-h) + 16px);
+}
+
+/* ---- 幅・余白 ---- */
+.hr-container {
+	width: min(1200px, calc(100% - 48px));
+	margin-inline: auto;
+}
+
+.hr-section {
+	padding-block: 72px;
+}
+
+.hr-section--paper {
+	background: var(--paper);
+}
+
+.hr-section--soft {
+	background: var(--soft);
+}
+
+.hr-section--ink {
+	background: var(--ink);
+	color: var(--white);
+}
+
+/* ---- 見出し（英字小見出しは出さない：監査12） ---- */
+.hr-serif {
+	font-family: var(--hr-font-serif);
+	font-weight: 600;
+	letter-spacing: .03em;
+}
+
+.hr-title {
+	margin-bottom: 28px;
+}
+
+.hr-title__tag {
+	display: block;
+	font-size: 13px;
+	font-weight: 500;
+	letter-spacing: .12em;
+	color: var(--muted);
+	margin-bottom: 12px;
+}
+
+.hr-title__heading,
+.hr-title h2 {
+	font-family: var(--hr-font-serif);
+	font-size: clamp(26px, 3vw, 38px);
+	font-weight: 600;
+	line-height: 1.5; /* 監査12：見出しの行間は 1.5（2行が「2つの文」に見えない） */
+	letter-spacing: .03em;
+	text-wrap: balance;
+}
+
+.hr-lead {
+	font-size: 17px;
+	font-weight: 500;
+	line-height: 1.9;
+}
+
+.hr-muted {
+	color: var(--muted);
+}
+
+.hr-caption {
+	font-size: 12px;
+	color: var(--muted);
+	line-height: 1.8;
+}
+
+.hr-num {
+	font-variant-numeric: tabular-nums;
+}
+
+/* ---- ボタン ---- */
+.hr-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	min-height: 48px;
+	padding: 12px 28px;
+	border: 2px solid var(--blue);
+	border-radius: var(--hr-radius);
+	background: var(--blue);
+	color: var(--white);
+	font-size: 16px; /* 監査12 ⑦：CTA 文字は 16px/700 */
+	font-weight: 700;
+	line-height: 1.3;
+	text-align: center;
+	cursor: pointer;
+	transition: background .2s, color .2s, border-color .2s;
+}
+
+.hr-button:hover {
+	background: var(--blue-dark);
+	border-color: var(--blue-dark);
+}
+
+.hr-button--ghost {
+	background: transparent;
+	color: var(--blue);
+}
+
+.hr-button--ghost:hover {
+	background: var(--soft);
+	color: var(--blue-dark);
+}
+
+.hr-button--accent {
+	background: var(--accent);
+	border-color: var(--accent);
+	color: var(--white);
+}
+
+.hr-button--accent:hover {
+	background: var(--accent-text);
+	border-color: var(--accent-text);
+}
+
+.hr-button--white {
+	background: var(--white);
+	border-color: var(--white);
+	color: var(--ink);
+}
+
+.hr-button--white:hover {
+	background: var(--paper);
+	border-color: var(--paper);
+}
+
+.hr-button--block {
+	display: flex;
+	width: 100%;
+}
+
+.hr-button[disabled],
+.hr-button[aria-disabled="true"] {
+	opacity: .6;
+	cursor: wait;
+}
+
+.hr-text-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-height: 44px;
+	font-weight: 500;
+	color: var(--blue);
+	border-bottom: 1px solid currentColor;
+	line-height: 1.4;
+}
+
+.hr-text-link:hover {
+	color: var(--accent-text);
+}
+
+/* ---- 開閉（ネイティブ details。モーダルは使わない） ---- */
+.hr-details {
+	border-top: 1px solid var(--line);
+	border-bottom: 1px solid var(--line);
+}
+
+.hr-details + .hr-details {
+	border-top: 0;
+}
+
+.hr-details > summary {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	min-height: 56px;
+	padding: 12px 0;
+	list-style: none;
+	cursor: pointer;
+	font-weight: 700;
+	line-height: 1.6;
+}
+
+.hr-details > summary::-webkit-details-marker {
+	display: none;
+}
+
+.hr-details > summary::after {
+	content: '＋';
+	flex: 0 0 auto;
+	display: grid;
+	place-items: center;
+	width: 32px;
+	height: 32px;
+	border: 1px solid var(--line);
+	border-radius: 50%;
+	font-size: 18px;
+	font-weight: 400;
+	color: var(--blue);
+	transition: background .2s, color .2s;
+}
+
+.hr-details[open] > summary::after {
+	content: '−';
+	background: var(--blue);
+	border-color: var(--blue);
+	color: var(--white);
+}
+
+.hr-details > summary:hover::after {
+	background: var(--soft);
+}
+
+.hr-details[open] > summary:hover::after {
+	background: var(--blue-dark);
+}
+
+.hr-details__body {
+	padding: 4px 0 24px;
+}
+
+/* ---- 出現アニメ（JSが動いたときだけ隠す。監査05/10） ---- */
+html.js [data-reveal]:not(.is-visible) {
+	opacity: 0;
+	transform: translateY(24px);
+}
+
+html.js [data-reveal] {
+	transition: opacity .8s var(--hr-ease), transform .8s var(--hr-ease);
+}
+
+html.js [data-reveal]:focus-within {
+	opacity: 1;
+	transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	html.js [data-reveal],
+	html.js [data-reveal]:not(.is-visible) {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: .01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: .01ms !important;
+	}
+}
+
+/* ---- 支援技術向け ---- */
+.hr-visually-hidden {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* ---- フォーム共通（contact.css が上書きする前提の最低限） ---- */
+.hr-input,
+.hr-select,
+.hr-textarea {
+	width: 100%;
+	min-height: 48px;
+	padding: 10px 14px;
+	border: 1px solid #7f9794;
+	border-radius: var(--hr-radius);
+	background: var(--white);
+	font-size: 16px;
+}
+
+.hr-input:focus-visible,
+.hr-select:focus-visible,
+.hr-textarea:focus-visible {
+	border-color: var(--blue);
+}
+
+/* ---- スマホ ---- */
+@media (max-width: 767px) {
+	:root {
+		--hr-header-h: 56px;
+	}
+
+	body {
+		font-size: 14px;
+	}
+
+	.hr-container {
+		width: calc(100% - 32px);
+	}
+
+	.hr-section {
+		padding-block: 48px;
+	}
+
+	.hr-title__heading,
+	.hr-title h2 {
+		font-size: clamp(22px, 6.4vw, 28px);
+		line-height: 1.55;
+	}
+
+	.hr-lead {
+		font-size: 15px;
+	}
+
+	/* 固定CTA分、ページ末尾に余白 */
+	body.hr-front .hr-main {
+		padding-bottom: var(--hr-mobile-cta-h);
+	}
+}
+
+/* ---- 印刷 ---- */
+@media print {
+	.hr-skip,
+	[data-menu-toggle],
+	#hr-mobile-menu {
+		display: none !important;
+	}
+
+	html.js [data-reveal] {
+		opacity: 1;
+		transform: none;
+	}
+}

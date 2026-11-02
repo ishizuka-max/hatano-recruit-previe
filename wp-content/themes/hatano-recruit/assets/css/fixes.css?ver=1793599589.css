@@ -1,0 +1,76 @@
+/* =============================================================
+   fixes.css — QA（アクセシビリティ・モバイル・性能）担当の修正だけを置く
+   最後に読み込まれる。根拠は /home/claude/pm/wave2/qa-report.md
+   ============================================================= */
+
+/* ---- QA-1 塗りボタンの文字コントラスト（axe: #fff on #ba641e = 4.26 < 4.5）
+   送信ボタン・最終CTAの「応募する」を、ヒーロー・固定CTAと同じ --accent-text (#9c4f17 / 5.92:1) に統一 ---- */
+.hr-button.hr-button--accent,
+.hr-form .hr-form__submit,
+.hr-invitation .hr-invitation__button--primary {
+	background: var(--accent-text, #9c4f17);
+	border-color: var(--accent-text, #9c4f17);
+}
+.hr-button.hr-button--accent:hover,
+.hr-form .hr-form__submit:hover,
+.hr-invitation .hr-invitation__button--primary:hover {
+	background: #86420f;
+	border-color: #86420f;
+}
+
+/* ---- QA-2 ヘッダー「応募」ボタンのアクセシブルネーム（axe: button-name, SPで critical）
+   767px以下は長い文言が display:none、短い文言が aria-hidden のため名前が空になる。
+   長い文言を「見えないが読める」形に変えて名前を残す ---- */
+@media (max-width: 767px) {
+	.hr-header__apply {
+		position: relative;
+	}
+	.hr-header__apply-long {
+		display: inline;
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		padding: 0;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+}
+
+/* ---- QA-3 フォーカスリング（#c27231）が青地・写真の上で 3:1 未満（ヒーロー内 1.68〜1.96）
+   暗い背景のブロック内だけ白いリングにする（白 on --blue 6.14 / on --ink 11.9 / on #9c4f17 5.9） ---- */
+.hr-hero :focus-visible,
+.hr-facts :focus-visible,
+.hr-invitation :focus-visible,
+.hr-section--ink :focus-visible,
+.hr-mobile-cta :focus-visible {
+	outline-color: #fff;
+}
+
+/* ---- QA-4 ヒーロー右上の一言「道路の下から、街を支える。」が 768〜1023px で写真に重なり読めない
+   （実測：スライド2・3で 3:1 未満が 21〜48%）。H1 と同じ紺の帯に載せる ---- */
+@media (max-width: 1023px) {
+	.hr-hero__note {
+		z-index: 2;
+		padding: 4px 10px;
+		background: #193c42d9;
+		color: #fff;
+	}
+}
+
+/* ---- QA-5 ロゴリンクのタップ領域（SPで 109×37px → 44px 以上に） ---- */
+.hr-brand {
+	min-height: 44px;
+}
+
+/* ---- QA-6 スマホで 10px の注記・ラベルを 11px に（免責「人物はイメージ写真です」／固定CTAの「日給」ラベル）。監査03-F ---- */
+@media (max-width: 767px) {
+	.hr-people__notice {
+		font-size: 11px;
+	}
+	.hr-mobile-cta__pay small {
+		font-size: 11px;
+	}
+}

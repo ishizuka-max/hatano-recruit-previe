@@ -1,0 +1,19 @@
+/* 最終CTA（担当：FAQ・フォーム） */
+.hr-invitation{position:relative;isolation:isolate;color:#fff;padding:104px 0;overflow:hidden;background:var(--ink,#193c42)}
+.hr-invitation__photo{position:absolute;inset:0;z-index:-2}
+.hr-invitation__photo picture,.hr-invitation__photo img{display:block;width:100%;height:100%;object-fit:cover}
+.hr-invitation::after{content:'';position:absolute;inset:0;background:rgba(7,59,66,.74);z-index:-1}
+.hr-invitation__inner{position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
+/* 折り返しは <wbr>（読点の直後）だけ。長い文言で1区切りが収まらないときだけ任意位置で折る */
+.hr-invitation__title{font-size:52px;font-weight:600;line-height:1.5;margin:0 0 20px;color:#fff;word-break:keep-all;overflow-wrap:anywhere}
+.hr-invitation__lead{font-size:15px;line-height:2;margin:0;color:#fff}
+.hr-invitation__actions{display:grid;gap:16px}
+.hr-invitation__button{display:flex;justify-content:space-between;align-items:center;gap:20px;width:100%;min-height:64px;padding:18px 26px;font-size:16px;font-weight:700;text-decoration:none;border-radius:4px}
+.hr-invitation__button--primary{background:var(--accent,#ba641e);color:#fff;border:1px solid var(--accent,#ba641e)}
+.hr-invitation__button--primary:hover{background:#a3561a;border-color:#a3561a}
+.hr-invitation__button.hr-button--ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.85)}
+.hr-invitation__button.hr-button--ghost:hover{background:rgba(255,255,255,.12)}
+.hr-invitation__button span{font-size:20px;line-height:1}
+.hr-invitation__button:focus-visible{outline:2px solid #fff;outline-offset:3px}
+@media (max-width:960px){.hr-invitation{padding:72px 0}.hr-invitation__inner{grid-template-columns:1fr;gap:32px}.hr-invitation__title{font-size:40px}}
+@media (max-width:640px){.hr-invitation{padding:56px 0}.hr-invitation__title{font-size:30px;margin:0 0 14px}.hr-invitation__lead{font-size:14px}.hr-invitation__actions{gap:12px}.hr-invitation__button{min-height:56px;padding:14px 18px;font-size:16px}}

@@ -1,0 +1,249 @@
+/* =============================================================
+   header.css — サイトヘッダー（sticky）＋モバイルメニュー
+   依存：base.css のトークン（--ink --blue --accent --accent-text --paper --soft --line --muted）
+   ============================================================= */
+
+:root {
+  --hr-header-h: 88px;
+}
+
+/* アンカー移動・フォーカス時のヘッダー補正は base.css の scroll-margin-top が --hr-header-h を参照する */
+
+/* ---------- ヘッダー本体 ---------- */
+.hr-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: var(--hr-header-h);
+  padding-inline: 40px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  background: #fffefa;
+  border-bottom: 1px solid #dce6e1;
+}
+
+/* ロゴ */
+.hr-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  line-height: 1.3;
+}
+.hr-brand__symbol {
+  font: 800 32px/1 'Noto Sans JP', sans-serif;
+  color: var(--blue);
+  border-block: 2px solid;
+  padding: 2px 1px;
+  transform: skewY(-8deg);
+}
+.hr-brand__text {
+  display: block;
+}
+.hr-brand__text small {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* PCナビ */
+.hr-nav {
+  display: flex;
+  gap: 24px;
+  margin-left: auto;
+}
+.hr-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  padding: 10px 2px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: border-color .2s, color .2s;
+}
+.hr-nav a:hover,
+.hr-nav a:focus-visible {
+  color: var(--blue);
+  border-bottom-color: var(--blue);
+}
+
+/* 応募ボタン（PC・SP共通で常時表示） */
+.hr-header__apply {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 48px;
+  padding: 12px 22px;
+  background: var(--blue);
+  color: #fff;
+  border: 0;
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background .2s;
+}
+.hr-header__apply:hover,
+.hr-header__apply:focus-visible {
+  background: #19545b;
+}
+.hr-header__apply-arrow {
+  font-size: 18px;
+  line-height: 1;
+}
+.hr-header__apply-short {
+  display: none;
+}
+
+/* ハンバーガー（SPのみ） */
+.hr-menu-toggle {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 4px;
+  background: none;
+  border: 0;
+  color: var(--ink);
+  font-family: inherit;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.hr-menu-toggle__icon {
+  display: block;
+  width: 22px;
+  height: 16px;
+  position: relative;
+}
+.hr-menu-toggle__svg {
+  position: absolute;
+  inset: 0;
+  width: 22px;
+  height: 16px;
+  display: block;
+  transition: opacity .2s, transform .25s;
+}
+.hr-menu-toggle__svg--close {
+  opacity: 0;
+  transform: rotate(-45deg);
+}
+.hr-menu-toggle__label {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: .04em;
+}
+.hr-menu-toggle__close {
+  display: none;
+}
+.hr-menu-toggle[aria-expanded="true"] .hr-menu-toggle__open { display: none; }
+.hr-menu-toggle[aria-expanded="true"] .hr-menu-toggle__close { display: inline; }
+.hr-menu-toggle[aria-expanded="true"] .hr-menu-toggle__svg--open { opacity: 0; transform: rotate(45deg); }
+.hr-menu-toggle[aria-expanded="true"] .hr-menu-toggle__svg--close { opacity: 1; transform: none; }
+
+/* モバイルメニュー（hidden属性で開閉。main.js が toggle） */
+.hr-mobile-menu {
+  display: none;
+}
+.hr-mobile-menu:not([hidden]) {
+  display: grid;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  padding: 20px 40px 24px;
+  background: #fffefa;
+  border-bottom: 1px solid var(--line);
+  grid-template-columns: 1fr 1fr;
+  gap: 0 30px;
+  box-shadow: 0 16px 20px #193c4210;
+}
+.hr-mobile-menu a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  padding: 12px 0;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 1px solid #dce6df;
+}
+.hr-mobile-menu a span {
+  color: var(--blue);
+}
+.hr-mobile-menu__apply {
+  grid-column: 1 / -1;
+  margin-top: 18px;
+  width: 100%;
+  justify-content: center;
+}
+
+/* ---------- ブレークポイント ---------- */
+@media (max-width: 1199px) {
+  .hr-header { padding-inline: 26px; gap: 20px; }
+  .hr-brand { font-size: 23px; }
+  .hr-nav { gap: 16px; }
+  .hr-nav a { font-size: 12px; }
+  .hr-header__apply { gap: 10px; padding-inline: 16px; }
+}
+
+@media (max-width: 1023px) {
+  .hr-nav { display: none; }
+  .hr-header__apply { margin-left: auto; }
+  .hr-menu-toggle { display: flex; }
+}
+
+@media (max-width: 767px) {
+  :root { --hr-header-h: 72px; }
+  .hr-header { padding-inline: 16px 8px; gap: 8px; }
+  .hr-brand { font-size: 19px; letter-spacing: .04em; gap: 8px; }
+  .hr-brand__symbol { font-size: 25px; }
+  .hr-brand__text small { font-size: 9px; letter-spacing: .1em; margin-top: 1px; }
+  .hr-header__apply { min-height: 44px; padding: 8px 14px; font-size: 15px; gap: 6px; }
+  .hr-header__apply-long { display: none; }
+  .hr-header__apply-short { display: inline; }
+  .hr-header__apply-arrow { font-size: 16px; }
+  .hr-mobile-menu:not([hidden]) { grid-template-columns: 1fr; padding: 8px 20px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hr-nav a,
+  .hr-header__apply,
+  .hr-menu-toggle__svg { transition: none; }
+}
+
+/* JS無効時（html.js が付かない）：SPではメニューを静的に展開して目次を失わない */
+@media (max-width: 1023px) {
+  html:not(.js) .hr-menu-toggle { display: none; }
+  html:not(.js) .hr-mobile-menu[hidden] {
+    display: grid;
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 0 8px;
+    border: 0;
+  }
+  html:not(.js) .hr-header { position: static; height: auto; flex-wrap: wrap; padding-block: 12px; }
+  html:not(.js) .hr-mobile-menu__apply { display: none; }
+}

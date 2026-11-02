@@ -1,0 +1,173 @@
+/* =============================================================
+   facts.css — 数字帯（日給・年間休日・資格取得＋CTA）
+   紺地（--ink）。数字は太いサンセリフ、金額は 700（監査12 §2）
+   ============================================================= */
+
+.hr-facts {
+  position: relative;
+  z-index: 5;
+  background: var(--ink);
+  color: #fff;
+}
+.hr-facts__inner {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr 1fr 1.1fr;
+  gap: 0;
+  padding-block: 0;
+}
+.hr-facts__inner > * {
+  min-width: 0;
+  padding: 24px 28px;
+  border-left: 1px solid #ffffff22;
+}
+.hr-facts__inner > :first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.hr-facts__label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  line-height: 1.4;
+  color: #bcd3cc;
+  margin-bottom: 6px;
+}
+.hr-facts__value {
+  display: block;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: clamp(28px, 2.6vw, 40px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+/* 日給だけ一段大きく（年間休日130と同格にしない） */
+.hr-facts__value--pay {
+  font-size: clamp(34px, 3.4vw, 52px);
+}
+.hr-facts__value--text {
+  font-size: clamp(24px, 2.2vw, 32px);
+}
+.hr-facts__dash {
+  margin-inline: 6px;
+  font-weight: 400;
+  color: #8fb0a6;
+}
+.hr-facts__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.hr-facts__unit {
+  font-style: normal;
+  font-size: 15px;
+  font-weight: 700;
+  margin-left: 6px;
+}
+.hr-facts__text {
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: #dbe7e3;
+}
+
+/* 右端 CTA：白文字 5.92:1 になる --accent-text を背景に使う（監査04 違反2） */
+.hr-facts__cta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  border-left: 0;
+  background: var(--accent-text);
+  color: #fff;
+  text-decoration: none;
+  transition: background .2s;
+}
+.hr-facts__cta strong {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+/* 矢印は文字の直後に添える（監査12：右端にぽつんと浮かせない） */
+.hr-facts__cta b {
+  flex: 0 0 auto;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1;
+  transition: transform .2s;
+}
+.hr-facts__cta:hover b,
+.hr-facts__cta:focus-visible b {
+  transform: translate(2px, -2px);
+}
+.hr-facts__cta:hover,
+.hr-facts__cta:focus-visible {
+  background: #86420f;
+  color: #fff;
+}
+
+/* 提案値の注記（pay.proposed が true のときだけ出る） */
+.hr-facts__note {
+  grid-column: 1 / -1;
+  border: 0;
+  padding: 0 0 14px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #bcd3cc;
+}
+
+/* ---------- ブレークポイント ---------- */
+@media (max-width: 1199px) {
+  /* 「職種別の日給を見る」が「見／る」と割れないよう、余白を詰めて1行で収める */
+  .hr-facts__cta { padding-inline: 20px; gap: 8px; }
+  .hr-facts__cta strong { white-space: nowrap; }
+}
+
+@media (max-width: 1023px) {
+  .hr-facts__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+  .hr-facts__inner > * {
+    padding: 18px 22px;
+    border-top: 1px solid #ffffff22;
+  }
+  .hr-facts__inner > :nth-child(-n+2) { border-top: 0; }
+  .hr-facts__inner > :nth-child(odd) { border-left: 0; padding-left: 0; }
+  .hr-facts__cta { padding-left: 22px; }
+}
+
+/* SP：1段目（日給）が 390×844 のファーストビューに入る高さに */
+@media (max-width: 767px) {
+  .hr-facts__inner {
+    grid-template-columns: 1fr;
+  }
+  .hr-facts__inner > * {
+    border-left: 0;
+    padding: 16px 0;
+  }
+  .hr-facts__inner > :nth-child(-n+2) { border-top: 1px solid #ffffff22; }
+  .hr-facts__inner > :first-child { border-top: 0; padding-top: 18px; }
+  .hr-facts__value { font-size: 26px; }
+  .hr-facts__value--pay { font-size: 34px; }
+  .hr-facts__value--text { font-size: 24px; }
+  .hr-facts__text { font-size: 12px; margin-top: 6px; }
+  .hr-facts__cta {
+    padding: 16px 20px;
+    min-height: 56px;
+    margin-block: 4px 16px;
+  }
+  .hr-facts__note { padding-bottom: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hr-facts__cta,
+  .hr-facts__cta b { transition: none; }
+}

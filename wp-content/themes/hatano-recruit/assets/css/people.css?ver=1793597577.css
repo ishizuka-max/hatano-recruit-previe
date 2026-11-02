@@ -1,0 +1,41 @@
+/* 職場の雰囲気（#people）— base.css のトークンを使用 */
+.hr-people{background:#fff}
+.hr-people__layout{display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:clamp(40px,6vw,90px)}
+
+.hr-people__photo{position:relative;padding-bottom:48px}
+.hr-people__photo picture{display:block}
+.hr-people__photo :is(img,.hr-img){display:block;width:100%;height:auto;aspect-ratio:.95;object-fit:cover;background:var(--soft)}
+.hr-people__band{position:absolute;right:-20px;bottom:64px;margin:0;color:#fff;background:var(--blue);font-size:clamp(20px,2vw,28px);font-weight:600;line-height:1.5;padding:12px 24px;letter-spacing:.04em;max-width:calc(100% + 20px)}
+.hr-people__notice{position:absolute;right:0;bottom:16px;font-size:11px;color:var(--muted)}
+
+.hr-people__heading{font-size:clamp(26px,2.9vw,40px);line-height:1.5;letter-spacing:.03em}
+.hr-people__lead{font-size:14px;line-height:2;color:var(--ink);margin:0}
+
+.hr-voices{padding-top:24px}
+.hr-voice{margin:0;padding:16px 0;border:0;border-top:1px solid var(--line);background:none;display:flex;gap:18px;align-items:flex-start}
+.hr-voice:last-child{border-bottom:1px solid var(--line)}
+.hr-voice__body{min-width:0;flex:1}
+.hr-voice p{font-size:clamp(17px,1.5vw,21px);line-height:1.8;font-weight:600;margin:0;color:var(--ink)}
+.hr-voice footer{font-size:12px;color:var(--muted);margin-top:6px;display:flex;flex-wrap:wrap;gap:4px 12px}
+.hr-voice__name{font-weight:700;color:var(--ink)}
+/* 実名・顔写真が来たときの枠（voices[n]['img'] とカスタマイザー画像が揃ったら表示） */
+.hr-voice__face{flex-shrink:0;width:64px;height:64px;border-radius:50%;overflow:hidden;background:var(--soft)}
+.hr-voice__face picture{display:block;height:100%}
+.hr-voice__face :is(img,.hr-img){display:block;width:100%;height:100%;object-fit:cover}
+
+@media (max-width:1023px){
+	.hr-people__layout{grid-template-columns:1fr;gap:28px}
+	.hr-people__photo{max-width:640px}
+}
+@media (max-width:767px){
+	.hr-people__photo{margin-left:calc(50% - 50vw);margin-right:16px;padding-bottom:44px;max-width:none}
+	.hr-people__photo :is(img,.hr-img){aspect-ratio:1.06}
+	.hr-people__band{font-size:clamp(17px,4.8vw,20px);right:-16px;bottom:60px;padding:10px 16px}
+	.hr-people__notice{font-size:10px}
+	.hr-people__heading{font-size:clamp(24px,7vw,28px);line-height:1.55}
+	.hr-people__lead{font-size:13px}
+	.hr-voices{padding-top:20px}
+	.hr-voice{padding:14px 0;gap:14px}
+	.hr-voice p{font-size:17px}
+	.hr-voice__face{width:52px;height:52px}
+}

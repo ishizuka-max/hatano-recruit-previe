@@ -1,0 +1,55 @@
+/* 育成・一日の流れ（#growth）— base.css のトークンを使用 */
+.hr-growth{background:var(--paper)}
+.hr-growth__heading{font-size:clamp(28px,3.2vw,46px);line-height:1.5;letter-spacing:.03em}
+.hr-growth__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,100px);margin-top:clamp(32px,5vw,56px)}
+.hr-growth__col{min-width:0}
+
+/* 正直ブロック */
+.hr-honest{border-left:4px solid var(--accent);padding:4px 0 4px 20px;margin-bottom:28px}
+.hr-honest__title{font-size:clamp(19px,1.6vw,22px);font-weight:700;line-height:1.5;margin:0 0 10px}
+.hr-honest p{font-size:14px;line-height:2;color:var(--ink);margin:0}
+.hr-br-sp{display:none}
+
+/* 育成ステップ */
+.hr-career{padding:0;list-style:none;margin:0}
+.hr-career li{display:flex;gap:20px;align-items:flex-start;position:relative;padding:14px 0}
+.hr-career li:not(:last-child)::after{content:'';position:absolute;left:20px;top:62px;bottom:-6px;width:1px;background:var(--line)}
+.hr-career__num{flex-shrink:0;display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--blue);border-radius:50%;font:700 14px/1 'Noto Sans JP',sans-serif;color:var(--blue);background:var(--paper);position:relative;z-index:1}
+.hr-career__body{display:grid;gap:2px;padding-top:9px}
+.hr-career h4{font-size:16px;font-weight:700;line-height:1.5;margin:0}
+.hr-career__period{font-size:12px;color:var(--muted);letter-spacing:.04em}
+.hr-career__plus{display:inline-block;width:fit-content;font-size:12px;font-weight:700;color:var(--accent-text);background:#fff;border:1px solid var(--accent);border-radius:3px;padding:2px 8px;margin-top:4px}
+.hr-growth__caption{font-size:13px;color:var(--muted);line-height:1.9;margin:20px 0 0}
+
+/* 一日の流れ */
+.hr-growth__sub{font-size:clamp(19px,1.6vw,22px);font-weight:700;line-height:1.5;margin:0 0 10px}
+.hr-growth__lead{font-size:14px;color:var(--muted);line-height:1.9;margin:0 0 20px}
+.hr-day{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
+.hr-day li{display:grid;grid-template-columns:132px 1fr;gap:16px;border-bottom:1px solid var(--line);padding:13px 0;align-items:baseline}
+.hr-day__time{font-size:13px;font-weight:700;color:var(--blue);letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.hr-day__title{font-size:14px;font-weight:500}
+.hr-growth__details{margin-top:16px}
+.hr-day-detail p{font-size:13px;line-height:1.9;margin:0 0 14px}
+.hr-day-detail strong{display:block;margin-bottom:3px}
+
+@media (max-width:1023px){
+	.hr-growth__grid{grid-template-columns:1fr;gap:44px}
+}
+@media (max-width:767px){
+	.hr-growth__heading{font-size:clamp(25px,7.4vw,30px);line-height:1.55}
+	.hr-br-sp{display:inline}
+	.hr-honest{padding-left:16px;margin-bottom:22px}
+	.hr-honest p{font-size:13px}
+	.hr-career li{gap:16px;padding:12px 0}
+	.hr-career li:not(:last-child)::after{left:18px;top:56px}
+	.hr-career__num{width:38px;height:38px;font-size:13px}
+	.hr-career__body{padding-top:7px}
+	.hr-career h4{font-size:15px}
+	.hr-day li{grid-template-columns:104px 1fr;gap:12px}
+	.hr-day__time{font-size:12px}
+	.hr-day__title{font-size:13px}
+}
+@media (max-width:374px){
+	.hr-growth__heading{font-size:24px}
+	.hr-day li{grid-template-columns:1fr;gap:2px}
+}
